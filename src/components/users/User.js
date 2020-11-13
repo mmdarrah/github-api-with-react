@@ -12,11 +12,20 @@ Users.PropTypes = {
   getUserRepos: PropTypes.func.isRequired,
   repos: PropTypes.array.isRequired,
 };
-export default function User(props) {
+export default function User({
+  getUser,
+  getUserRepos,
+  match,
+  user,
+  loading,
+  repos,
+}) {
   useEffect(() => {
-    props.getUser(props.match.params.login);
-    props.getUserRepos(props.match.params.login);
-  });
+    getUser(match.params.login);
+    getUserRepos(match.params.login);
+    //eslint-disable-next-line
+  }, []);
+
   const {
     name,
     avatar_url,
@@ -31,8 +40,7 @@ export default function User(props) {
     public_gists,
     hireable,
     company,
-  } = props.user;
-  const { loading, repos } = props;
+  } = user;
 
   if (loading) {
     return <Spinner />;

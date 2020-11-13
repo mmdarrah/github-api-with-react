@@ -9,12 +9,14 @@ import Search from './components/users/Search';
 import Alert from '../src/components/layout/Alert';
 import About from './components/pages/About';
 
-function App() {
+const App = () => {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+
+  // Searsh Github users
   const searchUsers = async (text) => {
     setLoading(true);
     axios
@@ -24,6 +26,7 @@ function App() {
       .then((res) => setUsers(res.data.items), setLoading(false));
   };
 
+  // Get a specific Github user
   const getUser = async (userName) => {
     setLoading(true);
     axios
@@ -33,6 +36,7 @@ function App() {
       .then((res) => setUser(res.data), setLoading(false));
   };
 
+  // Get a specific user last 5 Repos
   const getUserRepos = async (userName) => {
     setLoading(true);
     axios
@@ -42,11 +46,13 @@ function App() {
       .then((res) => setRepos(res.data), setLoading(false));
   };
 
+  // Clear users
   const clearUsers = () => {
     setUsers([]);
     setLoading(false);
   };
 
+  // Add alert
   const setMyAlert = (msg, type) => {
     setAlert({ msg, type });
 
@@ -95,6 +101,6 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 export default App;

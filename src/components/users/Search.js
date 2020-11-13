@@ -8,15 +8,20 @@ Search.propTypes = {
   showClear: propTypes.bool.isRequired,
 };
 
-export default function Search(props) {
+export default function Search({
+  showClear,
+  clearUsers,
+  searchUsers,
+  setMyAlert,
+}) {
   const [text, setText] = useState('');
 
   const mySubmitHandler = (e) => {
     e.preventDefault();
     if (text === '') {
-      props.setMyAlert('Please enter somthing', 'light');
+      setMyAlert('Please enter somthing', 'light');
     } else {
-      props.searchUsers(text);
+      searchUsers(text);
       setText('');
     }
   };
@@ -38,8 +43,8 @@ export default function Search(props) {
         />
       </form>
       {/* Show clear button if there are result */}
-      {props.showClear && (
-        <button className='btn btn-light btn-block' onClick={props.clearUsers}>
+      {showClear && (
+        <button className='btn btn-light btn-block' onClick={clearUsers}>
           Clear
         </button>
       )}
