@@ -3,12 +3,10 @@ import propTypes from 'prop-types';
 import GithubContext from '../../context/github/githubContext';
 
 Search.propTypes = {
-  clearUsers: propTypes.func.isRequired,
   setMyAlert: propTypes.func.isRequired,
-  showClear: propTypes.bool.isRequired,
 };
 
-export default function Search({ showClear, clearUsers, setMyAlert }) {
+export default function Search({ setMyAlert }) {
   const githubContext = useContext(GithubContext);
 
   const [text, setText] = useState('');
@@ -40,8 +38,11 @@ export default function Search({ showClear, clearUsers, setMyAlert }) {
         />
       </form>
       {/* Show clear button if there are result */}
-      {showClear && (
-        <button className='btn btn-light btn-block' onClick={clearUsers}>
+      {githubContext.users.length > 0 && (
+        <button
+          className='btn btn-light btn-block'
+          onClick={githubContext.clearUsers}
+        >
           Clear
         </button>
       )}
