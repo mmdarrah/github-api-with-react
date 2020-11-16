@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import propTypes from 'prop-types';
+import GithubContext from '../../context/github/githubContext';
 
 Search.propTypes = {
-  searchUsers: propTypes.func.isRequired,
   clearUsers: propTypes.func.isRequired,
   setMyAlert: propTypes.func.isRequired,
   showClear: propTypes.bool.isRequired,
 };
 
-export default function Search({
-  showClear,
-  clearUsers,
-  searchUsers,
-  setMyAlert,
-}) {
+export default function Search({ showClear, clearUsers, setMyAlert }) {
+  const githubContext = useContext(GithubContext);
+
   const [text, setText] = useState('');
 
   const mySubmitHandler = (e) => {
@@ -21,7 +18,7 @@ export default function Search({
     if (text === '') {
       setMyAlert('Please enter somthing', 'light');
     } else {
-      searchUsers(text);
+      githubContext.searchUsers(text);
       setText('');
     }
   };
